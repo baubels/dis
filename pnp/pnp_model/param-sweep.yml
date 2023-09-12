@@ -1,0 +1,33 @@
+
+# program: /content/drive/MyDrive/dis/POSE_MODEL/main.py
+method: bayes
+name: sweep
+
+metric:
+  name: MSELossDistance       # one of MSELoss, Angular1 ; determines the loss function used between two quaternions
+  goal: minimize
+
+parameters:
+  lr:
+    min: 0.0000001
+    max: 0.005
+  
+  momentum:
+    min: 0.5
+    max: 1.0
+
+  weight_decay:
+    min: 0.0
+    max: 3.0
+
+  epochs:
+    values: [7]
+
+  batch_size:
+    values: [8, 16, 32, 48]
+
+  dataset:
+    values: ["/content/drive/MyDrive/dis/POSE_MODEL/file_paths.txt"]
+
+
+num_sweeps: 50

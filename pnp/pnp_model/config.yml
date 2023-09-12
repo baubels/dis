@@ -1,0 +1,52 @@
+
+# config.yml
+
+model:
+  architecture: resnet18             # (`resnet50`, `resnet18`, `resnet18v2`, `alexnet`, `custom1`, `custom1_v2`)
+  resume: false                   # add the PATH to the latest model checkpoint if resuming training
+  scheduler: False                # bool: toggles a learning rate scheduler, defined in main.py
+  save_model: /content/drive/My Drive/dis/POSE_MODEL/saved_models/ROTONLY               # MODEL SAVE PATH; if false do nothing, otherwise save to the specified save path
+
+
+training:
+  criterion: MSELossDistance       # one of MSELoss, Angular1 ; determines the loss function used between two quaternions
+  epochs: 10                       # Total number of epochs to run
+  batch_size: 48                  # Batch size to use
+  # lr: 0.0005044303933938371                     # Learning rate to use
+  lr: 0.005
+  lr_patience: 7                  # the scheduler's update patience
+  momentum: 0.525700864782962                   # SGD momentum to use
+  weight_decay: 0.09831201983891584            # SGD weight decay
+  rot_importance: 0.5
+
+data:
+  # dataset: /content/drive/My Drive/dis/blender-datasets/side-2-side                  # dataset PATH
+  # dataset: /content/drive/MyDrive/dis/POSE_MODEL/file_paths.txt
+  seed: 1                         # seed used to determine data splits
+  filters: none                   # pre-training filters to apply to the dataset
+                                  # one of 'none', 'distances' ()
+  # filter_params: [(12,15), (20, 23), (30, 35)]                  
+                                  # corresponding filter info for use in tandem with `data.filters`
+                                  # if data.filters == 'distances': give a list [(d1, d2), (d3, d4), ...] 
+  fov: 30                         # Numeric (>0) type indicating camera FOV.
+
+
+logging:
+  wandb: true                    # bool: answers, is wandb logging on or off?
+  # doing_sweeps: false
+  doing_sweeps: /content/drive/MyDrive/dis/POSE_MODEL/param-sweep.yml
+  
+                                  # alternatively: "/content/drive/My Drive/dis/blender-yml/param-sweep.yml"
+                                  # PATH: if false, no sweeps, otherwise add in the path for the param-sweep.yml file.
+                                  #       if true, modify param-sweep.yml for sweep parameters
+
+  project_name: 'Pose and Dist Estimation - ROT' # Wandb sweep project name
+  print_freq_train: 40            # frequency of printing mini-batch training info
+  print_freq_val: 30              # frequency of printing mini-batch validation info
+
+
+machine:
+  workers: 0                      # n_workers for dataloading
+  device: cuda                    # one of cpu, cuda.
+
+# ------------------------------- #
