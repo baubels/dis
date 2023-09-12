@@ -1,0 +1,29 @@
+program: "/content/drive/My Drive/dis/blender-pose-and-dist/main.py"
+method: bayes
+name: sweep
+
+metric:
+  name: Train_Mean_Angular
+  goal: minimize
+
+parameters:
+  lr:
+    min: 0.000001
+    max: 0.1
+  
+  momentum:
+    min: 0.5
+    max: 1.0
+
+  weight_decay:
+    min: 0.0
+    max: 0.5
+
+  epochs:
+    values: [25]
+
+  batch_size:
+    values: [4, 8, 16, 32]
+
+  dataset:
+    values: ["/content/drive/My Drive/dis/blender-datasets/side-2-side"]
